@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_07_100615) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_085601) do
   create_table "attendences", force: :cascade do |t|
     t.time "punch_in"
     t.time "punch_out"
@@ -19,6 +19,32 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_100615) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_attendences_on_employee_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "name", null: false
+    t.string "role", default: "", null: false
+    t.string "post", null: false
+    t.string "image"
+    t.integer "manager_id"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_employees_on_email", unique: true
+    t.index ["manager_id"], name: "index_employees_on_manager_id"
+    t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
+  end
+
+  create_table "employees_roles", id: false, force: :cascade do |t|
+    t.integer "employee_id"
+    t.integer "role_id"
+    t.index ["employee_id", "role_id"], name: "index_employees_roles_on_employee_id_and_role_id"
+    t.index ["employee_id"], name: "index_employees_roles_on_employee_id"
+    t.index ["role_id"], name: "index_employees_roles_on_role_id"
   end
 
   create_table "issues", force: :cascade do |t|
@@ -56,7 +82,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_07_100615) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.integer "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
   add_foreign_key "attendences", "employees"
+  add_foreign_key "employees", "employees", column: "manager_id"
   add_foreign_key "issues", "employees"
   add_foreign_key "leaves", "employees"
 end
