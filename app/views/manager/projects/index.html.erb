@@ -1,0 +1,26 @@
+<h1 class = "text-center">Projects</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">S.No.</th>
+      <th scope="col">Project</th>
+      <th scope="col">Deadline</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <%i = 1%>
+  <% @projects.each do |project| %>
+  <tbody>
+    <tr>
+      <th scope="row"><%= i %></th>
+      <td><%= project.project_name %></td>
+      <th><%= project.project_deadline %></th>
+      <th><a href="/manager/projects/<%=project.id%>" class="link-dark">View</a></th>
+      <th><%= button_to "Assign", manager_projects_assign_project_new_path(project.id), method: :get, class: "btn btn-secondary" %></th>
+    </tr>
+  </tbody>
+  <% i += 1 %>
+<% end %>
+</table>

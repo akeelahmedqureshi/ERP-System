@@ -1,0 +1,14 @@
+<%#= turbo_frame_tag "assign" do %>
+  <%= form_with url: admin_projects_assign_project_path(params[:format]), method: :post do |form| %>
+    
+    <div class="field">
+      <%= form.label :assign_to %><br />
+      <%#= form.select :assign_to, ['High', 'Moderate','Low']%>
+      <%= form.select :assign_to, @employees.collect {|emp| [ emp.name, emp.id ] }%>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Assign" %>
+    </div>
+  <% end%>
+<%# end%>

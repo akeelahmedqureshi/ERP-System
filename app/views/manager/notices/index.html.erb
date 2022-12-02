@@ -1,0 +1,5 @@
+<h1>Notice</h1>
+
+<% @notices.each do |notice| %>
+  <a href = "/manager/notices/<%= notice.id%>"><%= notice.subject%><br>
+<%end%>

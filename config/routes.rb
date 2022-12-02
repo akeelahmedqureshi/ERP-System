@@ -1,15 +1,49 @@
 Rails.application.routes.draw do
   devise_for :employees
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  root "home#index"
-  # root "new_employee_session_path"
-
-
-  namespace :admin do 
-    resources :employees, :projects, :issues, :attendence
-    resources :notice, only: [:index, :show]
+  devise_scope :employee do
+    root to: "devise/sessions#new"
   end
-  # Defines the root path route ("/")
-  # root "articles#index"
+
+  namespace :admin do
+
+    get 'projects/assign_project_new', to: 'projects#assign_project_new'
+    post 'projects/assign_project', to: 'projects#assign_project'
+    
+    resources :employees, :projects, :issues, :attendences, :notices, :dashboard, :leaves
+
+    root "dashboard#index"
+
+  end
+
+  namespace :hr do
+
+    resources :employees, :issues, :attendences, :notices
+    resources :dashboard, only: :index
+    resources :leaves
+
+    root "dashboard#index"
+  end
+
+  namespace :manager do
+
+    get 'projects/assign_project_new', to: 'projects#assign_project_new'
+    post 'projects/assign_project', to: 'projects#assign_project'
+    resources :issues, :attendences
+    resources :dashboard, only: :index
+    resources :employees, :notices, :projects, only: [:index, :show]
+
+    root "dashboard#index"
+  end
+
+  namespace :employee do
+
+    # resources :employees, only: :index
+    resources :dashboard, only: :index
+    resources :employees, :notices, :projects, only: [:index, :show]
+    resources :issues, :attendences
+
+    root "dashboard#index"
+  end
+
 end

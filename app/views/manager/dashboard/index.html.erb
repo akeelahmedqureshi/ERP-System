@@ -1,0 +1,41 @@
+<h1 class = "text-center">Dashboard</h1>
+&nbsp;
+&nbsp;
+<% if @leaves.present?%>
+  <div>
+    <h2 class = "text-center">Leave Request</h2>
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">S.No.</th>
+        <th scope="col">Start Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Reason</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <%i = 1%>
+    <% @leaves.each do |leave| %>
+    <tbody>
+      <tr>
+        <th scope="row"><%= i %></th>
+        <td><%= leave.start_date %></td>
+        <td><%= leave.end_date %></td>
+        <td><%= leave.reason %></td>
+        <th><%= button_to "Approve", manager_leafe_path(id: leave.id, status: "Approve"), method: :put, class: "btn btn-secondary" %></th>
+        <th><%= button_to "Reject", manager_leafe_path(id: leave.id, status: "Reject"), method: :put, class: "btn btn-secondary" %></th>
+    </tbody>
+    <% i += 1 %>
+  <% end %>
+  </table>
+  </div>
+<% end %>
+<div class="border border-dark">
+  <h2 class = "text-center">Notices</h2>
+  <ul>
+    <% @notices.each do |notice| %>
+      <li><h5><a href = "/manager/notices/<%= notice.id%>" class="link-dark"><%= notice.subject%></b></li>
+    <% end%>
+  </ul>
+</div>

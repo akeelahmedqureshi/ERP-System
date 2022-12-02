@@ -1,0 +1,33 @@
+<% role = current_employee.roles.first.name%>
+<%=form_with model: [role.to_sym, @project] do |form|%>
+  <div>
+  &nbsp;
+    <%= form.label :project_name %><br>
+    &nbsp;
+    <%= form.text_field :project_name %>
+  </div>
+
+  <div>
+  &nbsp;
+    <%= form.label :project_description %><br>
+    &nbsp;
+    <%= form.text_area :project_description %>
+  </div>
+
+  <div>
+  &nbsp;
+    <%= form.label :project_deadline %><br>
+    <% if params[:action] == "new"%>
+    &nbsp;
+      <%= form.date_field :project_deadline %>
+    <% else%>
+    &nbsp;
+      <%= form.date_field :project_deadline, value: @project.project_deadline.to_date %>
+    <%end%>
+  </div>
+&nbsp;
+  <div>
+  &nbsp;
+    <%= form.submit "Submit", class: "btn btn-secondary" %>
+  </div>
+<%end%>

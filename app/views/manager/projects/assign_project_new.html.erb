@@ -1,0 +1,11 @@
+
+<%= form_with url: manager_projects_assign_project_path(params[:format]), method: :post do |form| %>
+  <div class="field">
+    <%= form.label :assign_to %>
+    <%= form.select :assign_to, @employees.collect {|emp| [ emp.name, emp.id ] }%>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Assign" %>
+  </div>
+<% end%>

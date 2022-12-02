@@ -1,0 +1,28 @@
+<h1 class = "text-center">Employees</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">S.No.</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Post</th>
+      <th scope="col">Role</th>
+    </tr>
+  </thead>
+  <%i = 1%>
+  <% @employees.each do |employee| %>
+  <tbody>
+    <tr>
+      <th scope="row"><%= i %></th>
+      <td><%= employee.name %></td>
+      <td><%= employee.email %></td>
+      <td><%= employee.post %></td>
+      <td><%= employee.roles.first.name%></td>
+    </tr>
+  </tbody>
+  <% i += 1 %>
+<% end %>
+</table>
+
+
+

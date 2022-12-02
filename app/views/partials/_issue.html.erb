@@ -1,0 +1,29 @@
+<% role = current_employee.roles.first.name%>
+<%= form_with model: [role.to_sym, @issue] do |form|%>
+
+  <div class="field">
+  &nbsp;
+    <%= form.label :subject %><br />
+    &nbsp;
+    <%= form.text_field :subject, autocomplete: "subject" %>
+  </div>
+
+  <div class="field">
+  &nbsp;
+    <%= form.label :description %><br />
+    &nbsp;
+    <%= form.text_field :description, autocomplete: "description" %>
+  </div>
+
+  <div class="field">
+  &nbsp;
+    <%= form.label :priority %><br />
+    &nbsp;
+    <%= form.select :priority, ['High', 'Moderate','Low']%>
+  </div>
+&nbsp;
+  <div class="actions">
+  &nbsp;
+    <%= form.submit "Submit", class: "btn btn-secondary" %>
+  </div>
+<% end%>

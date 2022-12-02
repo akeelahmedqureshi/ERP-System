@@ -1,0 +1,29 @@
+<% role = current_employee.roles.first.name%>
+<%=form_with model: [role.to_sym, @leave] do |form|%>
+  <div>
+  &nbsp;
+    <%= form.label :start_date %><br>
+    &nbsp;
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div>
+  &nbsp;
+    <%= form.label :end_date %><br>
+    &nbsp;
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div>
+  &nbsp;
+    <%= form.label :reason %><br>
+    &nbsp;
+    <%= form.text_area :reason %>
+  </div>
+
+&nbsp;
+  <div>
+  &nbsp;
+    <%= form.submit "Submit", class: "btn btn-secondary" %>
+  </div>
+<%end%>

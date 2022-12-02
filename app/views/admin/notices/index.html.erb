@@ -1,0 +1,6 @@
+<h1>Notice</h1>
+<%= button_to "Add Notice", new_admin_notice_path, method: :get %> 
+
+<% @notices.each do |notice| %>
+  <a href = "/admin/notices/<%= notice.id%>"><%= notice.subject%><br>
+<%end%>

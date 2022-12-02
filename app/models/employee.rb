@@ -1,23 +1,24 @@
 class Employee < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
+  has_many :issues
+  has_many :attendences
+  has_many :leaves
+  has_and_belongs_to_many :projects
+
+  has_many :subordinates, class_name: "Employee", foreign_key: "manager_id"
+  belongs_to :manager, class_name: "Employee", optional: true
+
+  # validates :title, presence: true, :allow_blank => true, on: :update
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  after_create :assign_default_role
-  
   rolify :before_add => :before_add_method
 
   def before_add_method(role)
     # do something before it gets added
   end
-  
-  protected
-  
-  def assign_default_role
-    # debugger
-    # role = current_employee.role
-    # self.add_role(:manager) if self.roles.blank?
-    Employee.last.add_role(:manager) if Employee.last.roles.blank?
-  end
+
 end

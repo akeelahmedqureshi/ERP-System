@@ -1,0 +1,60 @@
+<% role = current_employee.roles.first.name%>
+<%= form_with model: [role.to_sym, @employee] do |f| %>
+
+  <div class="mb-3">
+  &nbsp;
+    <%= f.label :email %><br />
+    &nbsp;
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="mb-3">
+  &nbsp;
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    &nbsp;
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="mb-3">
+  &nbsp;
+    <%= f.label :password_confirmation %><br />
+    &nbsp;
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="mb-3">
+  &nbsp;
+    <%= f.label :name %><br />
+    &nbsp;
+    <%= f.text_field :name, autocomplete: "name" %>
+  </div>
+
+  <div class="mb-3">
+  &nbsp;
+    <%= f.label :post %><br />
+    &nbsp;
+    <%= f.text_field :post, autocomplete: "post" %>
+  </div>
+
+  <% if params[:action] == "new" || (@employee.roles.first.name != "admin" && params[:action] == "edit")%>
+    <div class="mb-3">
+    &nbsp;
+      <%= f.label :role %><br />
+      <% if current_employee.roles.first.name == "admin" %>
+      &nbsp;
+        <%= f.select :role, [['Hr', "hr"], ['Manager', "manager"],['Employee', "employee"]], class: "form-select", aria_label: "Default select example" %>
+      <% else %>
+      &nbsp;
+        <%= f.select :role, [['Manager', "manager"],['Employee', "employee"]], class: "form-select", aria_label: "Default select example"%>
+      <% end%>
+    </div>
+  <% end%>
+&nbsp;
+  <div class="actions">
+  &nbsp;
+    <%= f.submit "Register", class: "btn btn-secondary" %>
+  </div>
+<% end %>

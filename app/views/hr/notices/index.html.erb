@@ -1,0 +1,6 @@
+<%= button_to "Add Notice", new_hr_notice_path, method: :get %> 
+<h1>Notice</h1>
+
+<% @notices.each do |notice| %>
+  <a href = "/hr/notices/<%= notice.id%>"><%= notice.subject%><br>
+<%end%>

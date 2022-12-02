@@ -1,0 +1,38 @@
+
+<!--<%= button_to "Add Project", new_admin_project_path, method: :get %> 
+<%@projects.each do |project|%>
+  <a href = "/admin/projects/<%=project.id%>"><%= project.project_name%></a>
+  <%= button_to "Assign", admin_projects_assign_project_new_path(project.id), method: :get %> <br>
+<%end%>-->
+<h1 class = "text-center">Projects</h1>
+<span>
+  <%= button_to "Add Project", new_admin_project_path , method: :get, class: "btn btn-secondary" %> 
+</span>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">S.No.</th>
+      <th scope="col">Project</th>
+      <th scope="col">Deadline</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <%i = 1%>
+  <% @projects.each do |project| %>
+  <tbody>
+    <tr>
+      <th scope="row"><%= i %></th>
+      <td><%= project.project_name %></td>
+      <th><%= project.project_deadline %></th>
+      <th><a href="/admin/projects/<%=project.id%>" class="link-dark">View</a></th>
+      <%#= turbo_frame_tag "assign" do %>
+      <th><%= button_to "Assign", admin_projects_assign_project_new_path(project.id), method: :get, class: "btn btn-secondary" %></th>
+      <%# end %>
+      <th><%= button_to "Delete", admin_project_path(project.id), method: :delete, class: "btn btn-secondary" %></th>
+    </tr>
+  </tbody>
+  <% i += 1 %>
+<% end %>
+</table>

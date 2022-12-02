@@ -1,0 +1,53 @@
+<h1 class = "text-center">Attendences</h1>
+<%= button_to "Previous month",  hr_attendence_path(current_employee.id, [@date,"previous"]), method: :get, class: "btn btn-primary" %>
+<% if @date.month != Date.today.month%>
+<%= button_to "Next month",  hr_attendence_path(current_employee.id, [@date,"next"]), method: :get, class: "btn btn-primary" %>
+<%end%>
+<h4 class = "text-right">Total working days: <%= @attendences.size%></h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Punch in</th>
+      <th scope="col">Punch out</th>
+      <th scope="col">Total Time</th>
+    </tr>
+  </thead>
+  <% date = @date.at_beginning_of_month %>
+    <% iterator_leave = 0 %>
+    <% iterator_attendence = 0 %>
+  <% while date <= Date.yesterday && date <= @date.at_end_of_month%>
+    <% if iterator_leave < @leaves.size && date >= @leaves[iterator_leave].start_date && date <= @leaves[iterator_leave].end_date%>
+      <tbody>
+        <tr style = "color:red">
+          <th scope="row"><%= date %></th>
+          <td><b>-</b></td>
+          <td><b>-</b></td>
+          <td><b>Leave</b></td>
+        </tr>
+      </tbody>
+      <% iterator_leave += 1%>
+      <% elsif iterator_attendence < @attendences.size && @attendences[iterator_attendence].created_at.to_date == date%>
+      <%#debugger%>
+        <tbody>
+          <tr>
+            <th scope="row"><%= date %></th>
+            <td><b><%= @attendences[iterator_attendence].punch_in.strftime("%H:%M")%></b></td>
+            <td><b><%= @attendences[iterator_attendence].punch_out.strftime("%H:%M")%></b></td>
+            <td><b><%= @attendences[iterator_attendence].total_time.strftime("%H:%M")%></b></td>
+          </tr>
+        </tbody>
+        <% iterator_attendence += 1%>
+      <% else%>
+        <tbody>
+          <tr>
+            <th scope="row"><%= date %></th>
+            <td><b></b></td>
+            <td><b></b></td>
+            <td><b>No Record</b></td>
+          </tr>
+        </tbody>
+    <%end%>
+      <%date += 1.day%>
+  <%end%>
+</table>

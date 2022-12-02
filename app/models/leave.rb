@@ -1,2 +1,0 @@
-class Leave < ApplicationRecord
-end

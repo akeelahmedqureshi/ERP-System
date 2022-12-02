@@ -1,0 +1,22 @@
+<h1 class = "text-center">Issues</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Employee Name</th>
+      <th scope="col">Issue</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Description</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <% @issues.each do |issue| %>
+    <tbody>
+      <tr>
+        <td><%= issue.employee.name %></td>
+        <td><%= issue.subject %></td>
+        <td><%= issue.priority %></td>
+        <td><%= issue.description %></td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>

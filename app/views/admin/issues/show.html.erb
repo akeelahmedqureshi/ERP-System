@@ -1,0 +1,23 @@
+<h1 class = "text-center">Issue</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Employee Name</th>
+      <th scope="col">Issue</th>
+      <th scope="col">Description</th>
+      <th scope="col">Priority</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @issue.employee.name %></td>
+      <td><%= @issue.subject %></td>
+      <td><%= @issue.description %></td>
+      <td><%= @issue.priority %></td>
+      <td><%= button_to "Delete", admin_issue_path(@issue.id), method: :delete, class: "btn btn-secondary" %></td>
+      <td><%= button_to "Edit", edit_admin_issue_path, method: :get, class: "btn btn-secondary" %> </td>
+    </tr>
+  </tbody>
+</table>
