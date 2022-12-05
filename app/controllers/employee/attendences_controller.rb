@@ -3,18 +3,10 @@ class Employee::AttendencesController < Employee::BaseController
   end
 
   def show
+    @employee = Employee.find_by(id: params[:id])
     @leaves = current_employee.leaves.where("status = ?", 'Approve')
-    if params[:format].present?
-      parameters = params[:format].split("/")
-      if parameters[1] == "previous"
-        @date = parameters[0].to_date - 1.month
-      else
-        @date = parameters[0].to_date + 1.month
-      end
-    else
-      @date = Date.today
-    end
-    @attendences = Employee.find_by(id: params[:id]).attendences.where("created_at >= ? AND created_at <=?", @date.at_beginning_of_month, @date.at_end_of_month)
+    @date = date
+    @attendences = @employee.attendences.where("created_at >= ? AND created_at <=?", @date.at_beginning_of_month, @date.at_end_of_month)
   end
 
   def new
@@ -47,8 +39,17 @@ class Employee::AttendencesController < Employee::BaseController
     current_employee.attendences.last.created_at.to_date != DateTime.now.to_date
   end
 
-  def new_object
-    Attendence.new()
+  def date
+    if params[:format].present?
+      parameters = params[:format].split("/")
+      if parameters[1] == "previous"
+        parameters[0].to_date - 1.month
+      else
+        parameters[0].to_date + 1.month
+      end
+    else
+      Date.today
+    end
   end
 
   def total_time(attendence)

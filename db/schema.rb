@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_24_110934) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_04_033356) do
   create_table "attendences", force: :cascade do |t|
     t.time "punch_in"
     t.time "punch_out"
@@ -19,6 +19,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_110934) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_attendences_on_employee_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "courses_employees", id: false, force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "employee_id", null: false
   end
 
   create_table "employees", force: :cascade do |t|
@@ -61,7 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_110934) do
     t.index ["employee_id"], name: "index_issues_on_employee_id"
   end
 
-  create_table "leavesleaves", force: :cascade do |t|
+  create_table "leaves", force: :cascade do |t|
     t.date "start_date"
     t.date "end_date"
     t.string "status"

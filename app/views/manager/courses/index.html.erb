@@ -1,0 +1,29 @@
+<h1 class = "text-center">Courses</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">S.No.</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <%i = 1%>
+  <% @courses.each do |course| %>
+  <tbody>
+    <tr>
+      <th scope="row"><%= i %></th>
+      <td><%= course.title %></td>
+      <td><%= course.description %></td>
+      <td><%= course.price %></td>
+      <% if course.employees.include?(current_employee)%>
+        <td><%= button_to "Show", manager_course_path(course.id), method: :get, class: "btn btn-secondary" %></td>
+      <% else%>
+        <td><%= button_to "Buy", new_charge_path(course.id), method: :get, class: "btn btn-secondary" %></td>
+      <% end%>
+    </tr>
+  </tbody>
+  <% i += 1 %>
+<% end %>
+</table>

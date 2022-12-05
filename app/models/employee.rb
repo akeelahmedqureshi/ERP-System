@@ -6,6 +6,7 @@ class Employee < ApplicationRecord
   has_many :attendences
   has_many :leaves
   has_and_belongs_to_many :projects
+  has_and_belongs_to_many :courses
 
   has_many :subordinates, class_name: "Employee", foreign_key: "manager_id"
   belongs_to :manager, class_name: "Employee", optional: true

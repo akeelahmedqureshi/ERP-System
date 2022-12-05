@@ -5,14 +5,14 @@
   &nbsp;
     <%= form.label :subject %><br />
     &nbsp;
-    <%= form.text_field :subject, autocomplete: "subject" %>
+    <%= form.text_field :subject, autocomplete: "subject", :required => true %>
   </div>
 
   <div class="field">
   &nbsp;
     <%= form.label :description %><br />
     &nbsp;
-    <%= form.text_field :description, autocomplete: "description" %>
+    <%= form.text_field :description, autocomplete: "description", :required => true %>
   </div>
 &nbsp;
   <div class="actions">

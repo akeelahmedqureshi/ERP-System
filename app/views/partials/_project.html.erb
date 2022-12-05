@@ -4,14 +4,14 @@
   &nbsp;
     <%= form.label :project_name %><br>
     &nbsp;
-    <%= form.text_field :project_name %>
+    <%= form.text_field :project_name, :required => true %>
   </div>
 
   <div>
   &nbsp;
     <%= form.label :project_description %><br>
     &nbsp;
-    <%= form.text_area :project_description %>
+    <%= form.text_area :project_description, :required => true %>
   </div>
 
   <div>
@@ -19,10 +19,10 @@
     <%= form.label :project_deadline %><br>
     <% if params[:action] == "new"%>
     &nbsp;
-      <%= form.date_field :project_deadline %>
+      <%= form.date_field :project_deadline, :required => true %>
     <% else%>
     &nbsp;
-      <%= form.date_field :project_deadline, value: @project.project_deadline.to_date %>
+      <%= form.date_field :project_deadline, value: @project.project_deadline.to_date, :required => true %>
     <%end%>
   </div>
 &nbsp;

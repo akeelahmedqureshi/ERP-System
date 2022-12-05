@@ -1,0 +1,28 @@
+<h1 class = "text-center">Courses</h1>
+<td><%= button_to "Add Course", new_admin_course_path, method: :get, class: "btn btn-secondary" %></td>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">S.No.</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <%i = 1%>
+  <% @courses.each do |course| %>
+  <tbody>
+    <tr>
+      <th scope="row"><%= i %></th>
+      <td><%= course.title %></td>
+      <td><%= course.description %></td>
+      <td><%= course.price %></td>
+      <td><%= button_to "Show", admin_course_path(course.id), method: :get, class: "btn btn-secondary" %></td>
+      <td><%= button_to "Delete", admin_course_path(course.id), method: :delete, class: "btn btn-secondary" %></td>
+    </tr>
+  </tbody>
+  <% i += 1 %>
+<% end %>
+</table>

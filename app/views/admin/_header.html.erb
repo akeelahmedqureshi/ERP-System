@@ -22,18 +22,22 @@
           <a class="nav-link active" href="/admin/issues">Issues</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link active" href="/admin/courses">Courses</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link active" href="/admin/issues/new"> Raise Issue</a>
         </li>
         <li class="nav-item">
-          <%= turbo_frame_tag "first_turbo_frame" do %>
+          <a class="nav-link active" href="/admin/employees/<%= current_employee.id%>">Your Profile</a>
+        </li>
+        <li class="nav-item">
           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <% if current_employee.attendences.empty? || current_employee.attendences.last.punch_out.present?%>
-            <%= button_to "Punch In",  admin_attendences_path, method: :post, class: "btn btn-primary" %>
-          <% else%>
-            <%= button_to 'Punch Out', admin_attendence_path(current_employee.attendences.last.id), method: :patch, class: "btn btn-primary" %>
-          <%end%>
+            <% if current_employee.attendences.empty? || current_employee.attendences.last.punch_out.present?%>
+              <%= button_to "Punch In",  admin_attendences_path, method: :post, class: "btn btn-primary" %>
+            <% else%>
+              <%= button_to 'Punch Out', admin_attendence_path(current_employee.attendences.last.id), method: :patch, class: "btn btn-primary" %>
+            <%end%>
           </div>
-          <%end%>
         </li>
         &nbsp;&nbsp;
         <li class="nav-item">

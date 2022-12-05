@@ -1,0 +1,28 @@
+<% role = current_employee.roles.first.name%>
+<%= form_with model: [role.to_sym, @course] do |form|%>
+
+  <div class="field">
+  &nbsp;
+    <%= form.label :title %><br />
+    &nbsp;
+    <%= form.text_field :title, autocomplete: "title", :required => true %>
+  </div>
+
+  <div class="field">
+  &nbsp;
+    <%= form.label :description %><br />
+    &nbsp;
+    <%= form.text_field :description, autocomplete: "description", :required => true %>
+  </div>
+  <div class="field">
+  &nbsp;
+    <%= form.label :price %><br />
+    &nbsp;
+    <%= form.number_field :price, min: 100, autocomplete: "price", :required => true %>
+  </div>
+&nbsp;
+  <div class="actions">
+  &nbsp;
+    <%= form.submit "Submit", class: "btn btn-secondary" %>
+  </div>
+<% end%>

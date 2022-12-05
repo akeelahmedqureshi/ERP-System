@@ -1,7 +1,0 @@
-<% if employee_signed_in? %> 
-  <%= current_employee.role%>
- <div> Welcome <%= current_employee.email %> </div> 
-  <%= button_to "Sign out", destroy_employee_session_path, method: :delete %> 
-<% else %>
-  <%= button_to "Sign in", new_employee_session_path, method: :get %> 
-<% end %>

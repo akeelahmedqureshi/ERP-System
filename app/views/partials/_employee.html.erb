@@ -5,7 +5,7 @@
   &nbsp;
     <%= f.label :email %><br />
     &nbsp;
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", :required => true %>
   </div>
 
   <div class="mb-3">
@@ -15,28 +15,36 @@
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     &nbsp;
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <% if params[:action] == "edit"%>
+      <%= f.password_field :password, autocomplete: "new-password" %>
+    <% else%>
+      <%= f.password_field :password, autocomplete: "new-password", :required => true %>
+    <% end%>
   </div>
 
   <div class="mb-3">
   &nbsp;
     <%= f.label :password_confirmation %><br />
     &nbsp;
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <% if params[:action] == "edit"%>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <% else%>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", :required => true %>
+    <% end%>
   </div>
 
   <div class="mb-3">
   &nbsp;
     <%= f.label :name %><br />
     &nbsp;
-    <%= f.text_field :name, autocomplete: "name" %>
+    <%= f.text_field :name, autocomplete: "name", :required => true %>
   </div>
 
   <div class="mb-3">
   &nbsp;
     <%= f.label :post %><br />
     &nbsp;
-    <%= f.text_field :post, autocomplete: "post" %>
+    <%= f.text_field :post, autocomplete: "post", :required => true %>
   </div>
 
   <% if params[:action] == "new" || (@employee.roles.first.name != "admin" && params[:action] == "edit")%>

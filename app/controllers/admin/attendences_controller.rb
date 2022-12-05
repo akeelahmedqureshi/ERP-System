@@ -1,21 +1,10 @@
 class Admin::AttendencesController < Admin::BaseController
 
-  def index
-  end
-
   def show
-    @leaves = current_employee.leaves.where("status = ?", 'Approve')
-    if params[:format].present?
-      parameters = params[:format].split("/")
-      if parameters[1] == "previous"
-        @date = parameters[0].to_date - 1.month
-      else
-        @date = parameters[0].to_date + 1.month
-      end
-    else
-      @date = Date.today
-    end
-    @attendences = Employee.find_by(id: params[:id]).attendences.where("created_at >= ? AND created_at <=?", @date.at_beginning_of_month, @date.at_end_of_month)
+    @employee = Employee.find_by(id: params[:id])
+    @leaves = @employee.leaves.where("status = ?", 'Approve')
+    @date = date
+    @attendences = @employee.attendences.monthwise_attendences(@date)
   end
 
   def new
@@ -39,8 +28,6 @@ class Admin::AttendencesController < Admin::BaseController
     attendence.update(total_time: total_time(attendence))
   end
 
-  def destroy
-  end
 
   protected
 
@@ -48,13 +35,22 @@ class Admin::AttendencesController < Admin::BaseController
     current_employee.attendences.last.created_at.to_date != DateTime.now.to_date
   end
 
-  def new_object
-    Attendence.new()
-  end
-
   def total_time(attendence)
     totalTime = attendence.punch_out.to_time - attendence.punch_in.to_time
     time = "#{(totalTime / 3600).to_i}:#{(totalTime / 60) % 60}"
+  end
+
+  def date  
+    if params[:format].present?
+      parameters = params[:format].split("/")
+      if parameters[1] == "previous"
+        parameters[0].to_date - 1.month
+      else
+        parameters[0].to_date + 1.month
+      end
+    else
+      Date.today
+    end
   end
 
 end

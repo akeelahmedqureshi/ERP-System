@@ -1,4 +1,4 @@
-class Admin::NoticesController < Admin::BaseController
+  class Admin::NoticesController < Admin::BaseController
   def index
     @notices = Notice.all
   end

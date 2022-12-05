@@ -5,12 +5,13 @@ Rails.application.routes.draw do
     root to: "devise/sessions#new"
   end
 
+  resources :charges
   namespace :admin do
 
     get 'projects/assign_project_new', to: 'projects#assign_project_new'
     post 'projects/assign_project', to: 'projects#assign_project'
     
-    resources :employees, :projects, :issues, :attendences, :notices, :dashboard, :leaves
+    resources :employees, :projects, :issues, :attendences, :notices, :dashboard, :leaves, :courses
 
     root "dashboard#index"
 
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
     resources :employees, :issues, :attendences, :notices
     resources :dashboard, only: :index
     resources :leaves
+    resources :courses, except: [:edit, :update]
 
     root "dashboard#index"
   end
@@ -31,7 +33,7 @@ Rails.application.routes.draw do
     post 'projects/assign_project', to: 'projects#assign_project'
     resources :issues, :attendences
     resources :dashboard, only: :index
-    resources :employees, :notices, :projects, only: [:index, :show]
+    resources :employees, :notices,:courses, :projects, only: [:index, :show]
 
     root "dashboard#index"
   end
@@ -40,7 +42,7 @@ Rails.application.routes.draw do
 
     # resources :employees, only: :index
     resources :dashboard, only: :index
-    resources :employees, :notices, :projects, only: [:index, :show]
+    resources :employees, :notices, :projects, :courses, only: [:index, :show]
     resources :issues, :attendences
 
     root "dashboard#index"

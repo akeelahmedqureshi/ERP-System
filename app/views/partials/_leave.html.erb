@@ -4,21 +4,21 @@
   &nbsp;
     <%= form.label :start_date %><br>
     &nbsp;
-    <%= form.date_field :start_date %>
+    <%= form.date_field :start_date, :required => true %>
   </div>
 
   <div>
   &nbsp;
     <%= form.label :end_date %><br>
     &nbsp;
-    <%= form.date_field :end_date %>
+    <%= form.date_field :end_date, :required => true %>
   </div>
 
   <div>
   &nbsp;
     <%= form.label :reason %><br>
     &nbsp;
-    <%= form.text_area :reason %>
+    <%= form.text_area :reason, :required => true %>
   </div>
 
 &nbsp;
