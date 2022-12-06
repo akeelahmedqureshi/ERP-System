@@ -40,7 +40,7 @@ class Admin::AttendencesController < Admin::BaseController
     time = "#{(totalTime / 3600).to_i}:#{(totalTime / 60) % 60}"
   end
 
-  def date  
+  def date
     if params[:format].present?
       parameters = params[:format].split("/")
       if parameters[1] == "previous"
